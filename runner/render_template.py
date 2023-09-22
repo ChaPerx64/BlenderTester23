@@ -1,3 +1,6 @@
+# this code will be appended to a temporary script where
+# variables OUTPUT_PATH, X_RESOLUTION, Y_RESOLUTION will be defined
+
 import bpy
 
 
