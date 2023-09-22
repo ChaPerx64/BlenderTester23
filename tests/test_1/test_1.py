@@ -9,7 +9,7 @@ def test_1(
     x_resolution: int | None = None,
     y_resolution: int | None = None,
 ):
-    script_path = Path(__file__).parent.joinpath('blender_scenario_1.py')
+    script_path = Path(__file__).parent.joinpath('scenario_1_template.py')
     subprocess.call(f'"{blender_path}" -b -P "{script_path}"')
 
 

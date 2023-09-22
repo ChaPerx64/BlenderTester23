@@ -4,23 +4,28 @@ from pathlib import Path
 
 
 def create_objects():
-    bpy.ops.mesh.primitive_cube_add(location=(-1, 2.5, 1))
-    bpy.ops.mesh.primitive_ico_sphere_add(location=(0.35, 0.45, 0))
-    bpy.ops.mesh.primitive_cone_add(location=(0.75, -0.75, -1))
+    bpy.ops.mesh.primitive_cube_add(
+        location=(1, 2.5, 1),
+        size=1,
+    )
+    bpy.ops.mesh.primitive_ico_sphere_add(location=(0, 0, 0))
+    bpy.ops.mesh.primitive_cone_add(
+        location=(-1, -2.5, -1),
+        depth=1,
+        radius1=0.5,
+    )
     bpy.ops.mesh.primitive_torus_add(
-        location=(0, 0.65, 0),
+        location=(0, 0, 0),
         rotation=(math.radians(25), math.radians(25), math.radians(75)),
-        major_radius=5,
-        minor_radius=1.25,
+        major_radius=2.5,
+        minor_radius=0.4,
         major_segments=256,
         minor_segments=256,
     )
-
-
-def set_up_camera():
-    camera = bpy.data.objects["Camera"]
-    camera.location = (25, 1, 3)
-    camera.rotation_euler = (math.radians(82), 0, math.radians(90))
+    bpy.ops.mesh.primitive_plane_add(
+        location=(0, 0, -2),
+        size=20,
+    )
 
 
 def render_image(
@@ -41,12 +46,11 @@ def render_image(
 
 bpy.data.objects.remove(bpy.data.objects["Cube"])
 create_objects()
-set_up_camera()
 
 # append file with the following before sending it to Blender
 #
-# render_image(
-#     Path("D:/Workfolder/Workfolder_Coding/Blender testing 1/tests/test_1/img"),
-#     x_rsolution,
-#     Y_RESOLUTION,
-# )
+render_image(
+    Path("D:/Workfolder/Workfolder_Coding/Blender testing 1/tests/test_1/img"),
+    1920,
+    1080,
+)
