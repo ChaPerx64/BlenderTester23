@@ -1,19 +1,5 @@
 import bpy
 import math
-from pathlib import Path
-
-
-def render_image(
-        out_path: str | Path,
-        x_resolution: int,
-        y_resolution: int,
-):
-    out_path = Path(out_path)
-    render = bpy.data.scenes["Scene"].render
-    render.filepath = str(out_path)
-    render.resolution_x = int(x_resolution)
-    render.resolution_y = int(y_resolution)
-    bpy.ops.render.render(write_still=True)
 
 
 # removing the default cube
@@ -42,13 +28,3 @@ bpy.ops.mesh.primitive_plane_add(
     location=(0, 0, -2),
     size=20,
 )
-
-# append file with the following before sending it to Blender
-#
-# render_image(
-#     <output_path>,
-#     <x_resolution>,
-#     <y_resolution>,
-# )
-
-# calling the render_image function
