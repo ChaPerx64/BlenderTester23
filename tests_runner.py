@@ -58,7 +58,7 @@ def test_scenario(
     test_started = datetime.now()
 
     # creating output paths
-    render_output_path = Path(output_path) / 'test_1_result'
+    render_output_path = Path(output_path) / 'image'
     log_output_path = Path(output_path) / 'render.log'
 
     # creating a temporary blender script from a script template
