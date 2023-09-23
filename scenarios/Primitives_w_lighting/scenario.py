@@ -74,10 +74,6 @@ backlight_r.rotation_euler = (
 # Link the spotlight object to the active scene
 bpy.context.collection.objects.link(backlight_r)
 
-# Make the spotlight object the active object
-# bpy.context.view_layer.objects.active = backlight_r
-# backlight_r.select_set(True)
-
 # Create another light type
 light_narrow = bpy.data.lights.new(name="Backlight_Narrow", type='SPOT')
 light_narrow.energy = 10000.0
