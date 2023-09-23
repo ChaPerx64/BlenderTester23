@@ -55,3 +55,39 @@ bpy.data.objects["Torus"].data.materials.append(mat_rubbery)
 mat_greenish = bpy.data.materials.new('Greenish')
 mat_greenish.diffuse_color = (0.029, 0.8, 0.048, 1.0)
 bpy.data.objects["Plane"].data.materials.append(mat_greenish)
+
+# change position and brightness of the default Light
+bpy.data.objects["Light"].location = (10., -7.5, 10.)
+bpy.data.lights["Light"].energy = 3000.
+
+# Create a new light type
+light_wide = bpy.data.lights.new(name="Backlight_Wide", type='SPOT')
+light_wide.energy = 10000.0
+light_wide.spot_size = math.radians(50)
+
+# Create a spotlight object
+backlight_r = bpy.data.objects.new(name="Backlight_R", object_data=light_wide)
+backlight_r.location = (-2.0, 8.0, -0.5)
+backlight_r.rotation_euler = (
+    math.radians(-97), math.radians(12), math.radians(15))
+
+# Link the spotlight object to the active scene
+bpy.context.collection.objects.link(backlight_r)
+
+# Make the spotlight object the active object
+# bpy.context.view_layer.objects.active = backlight_r
+# backlight_r.select_set(True)
+
+# Create another light type
+light_narrow = bpy.data.lights.new(name="Backlight_Narrow", type='SPOT')
+light_narrow.energy = 10000.0
+light_narrow.spot_size = math.radians(35)
+
+# Create another spotlight object
+backlight_l = bpy.data.objects.new(
+    name="Backlight_L", object_data=light_narrow)
+backlight_l.location = (-6.5, -9.5, 7)
+backlight_l.rotation_euler = (
+    math.radians(42.4), math.radians(-47), math.radians(4.81))
+
+bpy.context.collection.objects.link(backlight_l)
