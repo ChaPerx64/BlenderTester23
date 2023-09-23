@@ -15,6 +15,8 @@ where:
 * OUTPUT_PATH -- path to a directory, where you want to see the output
 * X_RESOLUTION, Y_RESOLUTION -- resolution of images rendered
 
+There is also an optional argument `--create-dir (=False by default)` - when it is `True`, `tests_runner` creates a subdirectory `run_YYYY-MM-DD_hh-mm-ss` in your chosen `OUTPUT_PATH`, in case you want to run the same tests multiple times and not get the results overwritten.
+
 ## How to install and use it
 Prerequisites: Have Blender of version 3.3 or newer installed
 1. Clone this repo.
