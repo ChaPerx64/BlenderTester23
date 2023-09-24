@@ -1,3 +1,2 @@
-psutil --no-binary=:all:
 py-cpuinfo
 typer[all]
