@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                python3 tests_runner.py blender . 200 200
+                python3 tests_runner.py "/usr/bin/blender" . 200 200
                 '''
             }
         }

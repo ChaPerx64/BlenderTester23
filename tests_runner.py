@@ -18,7 +18,7 @@ def runtests(
     print('Test started\n')
 
     # checking if correct argument types are provided
-    if not ((r'\blender' == blender_path[-8:]) or (r'\blender.exe' == blender_path[-12:])):
+    if not (('blender' == os.path.basename(blender_path)) or ('blender.exe' == os.path.basename(blender_path))):
         raise FileNotFoundError(
             f'Incorrect input: blender_path ("{blender_path}") is not a blender executable.')
     if not Path(output_path).is_dir():
