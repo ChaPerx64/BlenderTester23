@@ -5,6 +5,11 @@ pipeline {
         }
     }
     stages {
+        stage('Image resolution input') {
+            steps {
+                input message: 'Enter resolution', ok: 'Enter', parameters: [string(defaultValue: '500', name: 'x_resolution', trim: true), string(defaultValue: '500', name: 'y_resolution', trim: true)]
+            }
+        }
         stage('Pull from GitHub') {
             steps {
                 echo "Pulling repo from github.."
@@ -23,7 +28,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                python3 tests_runner.py "/usr/bin/blender" . 200 200
+                python3 tests_runner.py "/blender-3.3.11-linux-x64.tar/blender" . 1000 1000 --create-dir=True
                 '''
             }
         }

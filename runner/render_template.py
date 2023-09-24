@@ -3,7 +3,7 @@
 
 import bpy
 
-
+bpy.context.scene.render.engine = 'CYCLES'
 render = bpy.data.scenes["Scene"].render
 render.filepath = OUTPUT_PATH
 render.resolution_x = X_RESOLUTION

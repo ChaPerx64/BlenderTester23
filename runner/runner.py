@@ -41,7 +41,7 @@ def run_scenario(
 
     # writing render log
     print('Writing render log...')
-    with open(log_output_path, mode='w') as logfile:
+    with open(log_output_path, mode='w+') as logfile:
         logfile.writelines(completed_process.stdout)
 
     # deleteing the temporary file
