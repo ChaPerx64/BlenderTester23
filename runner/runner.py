@@ -32,12 +32,17 @@ def run_scenario(
 
     # calling blender in a subprocess
     print('Calling Blender...')
+    completed_process = subprocess.run(
+        f'"{blender_path}" -b -P "{scenario_path}" -P "{render_script.name}"',
+        text=True,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
+    )
+
+    # writing render log
+    print('Writing render log...')
     with open(log_output_path, mode='w') as logfile:
-        subprocess.run(
-            f'"{blender_path}" -b -P "{scenario_path}" -P "{render_script.name}"',
-            stderr=logfile,
-            stdout=logfile,
-        )
+        logfile.writelines(completed_process.stdout)
 
     # deleteing the temporary file
     print('Removing temporary files...')
