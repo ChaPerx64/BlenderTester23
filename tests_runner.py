@@ -13,7 +13,7 @@ def runtests(
     output_path: str,
     x_resolution: int,
     y_resolution: int,
-    create_dir=False
+    create_dir=False,
 ):
     print('Test started\n')
 
@@ -24,6 +24,11 @@ def runtests(
     if not Path(output_path).is_dir():
         raise NotADirectoryError(
             'Incorrect input: out_path is not a directory or does not exist')
+    if type(create_dir) == str:
+        if create_dir.lower() == 'false' or create_dir == '':
+            create_dir = False
+        else:
+            create_dir = True
 
     print('Collecting system info')
     sysinfo = get_sysinfo()
