@@ -65,7 +65,7 @@ bpy.data.objects.remove(bpy.data.objects["Light"])
 
 # Create a new light type
 light_wide = bpy.data.lights.new(name="Backlight_Wide", type='SPOT')
-light_wide.energy = 10000.0
+light_wide.energy = 50000.0
 light_wide.spot_size = math.radians(50)
 
 # Create a spotlight object
@@ -79,7 +79,7 @@ bpy.context.collection.objects.link(backlight_r)
 
 # Create another light type
 light_narrow = bpy.data.lights.new(name="Backlight_Narrow", type='SPOT')
-light_narrow.energy = 10000.0
+light_narrow.energy = 1000.0
 light_narrow.spot_size = math.radians(35)
 
 # Create another spotlight object
