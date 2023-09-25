@@ -27,17 +27,17 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                pytest -sv test_blender.py --x_resolution $x_resolution --y_resolution $y_resolution --blender_path "blender" --output_path "/results"
+                pytest test_blender.py --x_resolution $x_resolution --y_resolution $y_resolution --blender_path "blender" --output_path "./results"
                 '''
             }
         }
     }
     post {
         always {
-            archiveArtifacts artifacts: '/results/*'
-            sh '''
-            rm -r '/results/*'
-            '''
+            echo "Collecting artifacts.."
+            archiveArtifacts 'results/**'
+            echo "Cleaning up.."
+            deleteDir()
         }
     }
 }
