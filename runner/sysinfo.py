@@ -2,6 +2,9 @@ import cpuinfo
 import platform
 import os
 import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_ram_gb() -> str:
@@ -30,6 +33,7 @@ def get_ram_gb() -> str:
 
 
 def get_sysinfo() -> dict:
+    logger.info('Collecting system info...')
     return dict({
         'CPU': cpuinfo.get_cpu_info().get('brand_raw'),
         'RAM': get_ram_gb(),

@@ -1,12 +1,11 @@
 from pathlib import Path
 import subprocess
-import tempfile
 import os
 import logging
-from datetime import datetime
+from textwrap import dedent
 
 
-RENDER_SCRIPT_PATH = Path(__file__).parent / 'render_template.py'
+RENDER_SCRIPT_PATH = Path(__file__).parent / 'render_script.py'
 SCENARIO_DIR_PATH = Path().cwd() / 'scenarios'
 
 logger = logging.getLogger(__name__)
@@ -19,22 +18,26 @@ def run_scenario(
     blender_path: str,
     scenario_path: str,
 ):
-    output_dir = Path(output_path) / scenario_path
-    output_dir.mkdir(parents=True, exist_ok=True)
-
     # creating output paths
-    render_output_path = output_dir / 'image'
+    render_output_path = Path(output_path) / 'image'
 
-    # scenario_path = scenario['scenario_path']
-    scenario_path = f"{SCENARIO_DIR_PATH / scenario_path}.py"
-
+    logger.debug('Environment variables set to:\n'
+                 f"X_RESOLUTION: {x_resolution},\n"
+                 f"Y_RESOLUTION: {y_resolution},\n"
+                 f"OUTPUT_PATH: {str(render_output_path)}"
+                 )
     # setting environment variables that render_script will use
     os.environ['X_RESOLUTION'] = x_resolution
     os.environ['Y_RESOLUTION'] = y_resolution
     os.environ['OUTPUT_PATH'] = str(render_output_path)
 
     # calling Blender in a subprocess
-    print('Calling Blender...')
+    logger.info('Calling Blender...')
+    logger.debug('Blender call arguments:\n'
+                 f'blender_path: {blender_path},\n'
+                 f'scenario_path: {scenario_path},\n'
+                 f'render_script_path: {RENDER_SCRIPT_PATH}'
+                 )
     completed_process = subprocess.run(
         [
             blender_path,
@@ -47,13 +50,13 @@ def run_scenario(
             "-P", RENDER_SCRIPT_PATH,
         ],
         text=True,
-        capture_output=True,
+        stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE
     )
 
     # writing render log
-    print('Writing render log...')
-    save_render_log(output_dir, completed_process.stdout, 'render.log')
-    save_render_log(output_dir, completed_process.stderr, 'render_err.log')
+    logger.info('Writing render log...')
+    save_render_log(output_path, completed_process.stdout, 'render.log')
 
     return completed_process
 

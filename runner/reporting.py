@@ -1,6 +1,9 @@
 from datetime import datetime
 from pathlib import Path
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def save_report_json(
@@ -10,6 +13,8 @@ def save_report_json(
     time_end: datetime,
     sysinfo: dict,
 ):
+    logger.info('Saving test report into JSON-file')
+    logger.debug(f"Saving path: {Path(output_path) / 'report.json'}")
     test_duration = time_end - time_start
     out_dict = dict()
     out_dict.update({
@@ -19,6 +24,8 @@ def save_report_json(
         'test_duration': f"{test_duration.total_seconds()} seconds",
         'system_info': sysinfo,
     })
-    Path(output_path).mkdir(parents=True, exist_ok=True)
+    logger.debug('Test report:\n' +
+                 '\n'.join([f"{key} : {value}" for key, value in out_dict.items()]))
+    # Path(output_path).mkdir(parents=True, exist_ok=True)
     with open(Path(output_path) / 'report.json', mode='w+') as f:
         json.dump(out_dict, f, indent=2)
