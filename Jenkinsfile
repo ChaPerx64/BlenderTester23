@@ -9,18 +9,6 @@ pipeline {
         string(name: "y_resolution", trim: true, description: "the height of the rendered image")
     }
     stages {
-        stage('Image resolution input') {
-            steps {
-                input (
-                    message: 'Enter resolution',
-                    ok: 'Enter',
-                    parameters: [
-                        string(defaultValue: '500', name: 'x_resolution', trim: true),
-                        string(defaultValue: '500', name: 'y_resolution', trim: true)
-                    ]
-                )
-            }
-        }
         stage('Pull from GitHub') {
             steps {
                 echo "Pulling repo from github.."
