@@ -1,2 +1,2 @@
 py-cpuinfo
-typer[all]
+pytest

@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                python3 tests_runner.py "/blender-3.3.11-linux-x64.tar/blender" . 1000 1000 --create-dir=True
+                pytest pytest blender /results 500 500
                 '''
             }
         }
