@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                pytest -sv test_blender.py --x_resolution $x_resolution --y_resolution $y_resolution --blender_path "blender" --output_path "/results"
+                pytest -sv test_blender.py --x_resolution $params.x_resolution --y_resolution $params.y_resolution --blender_path "blender" --output_path "/results"
                 '''
             }
         }
