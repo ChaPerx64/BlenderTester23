@@ -7,7 +7,14 @@ pipeline {
     stages {
         stage('Image resolution input') {
             steps {
-                input message: 'Enter resolution', ok: 'Enter', parameters: [string(defaultValue: '500', name: 'x_resolution', trim: true), string(defaultValue: '500', name: 'y_resolution', trim: true)]
+                input (
+                    message: 'Enter resolution',
+                    ok: 'Enter',
+                    parameters: [
+                        string(defaultValue: '500', name: 'x_resolution', trim: true),
+                        string(defaultValue: '500', name: 'y_resolution', trim: true)
+                    ]
+                )
             }
         }
         stage('Pull from GitHub') {
@@ -28,7 +35,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                pytest pytest blender /results 500 500
+                pytest -sv test_blender.py --x_resolution $x_resolution --y_resolution $y_resolution --blender_path "blender" --output_path "/results"
                 '''
             }
         }

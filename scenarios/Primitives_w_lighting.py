@@ -60,6 +60,9 @@ bpy.data.objects["Plane"].data.materials.append(mat_greenish)
 bpy.data.objects["Light"].location = (10., -7.5, 10.)
 bpy.data.lights["Light"].energy = 3000.
 
+# Removeing the default light
+bpy.data.objects.remove(bpy.data.objects["Light"])
+
 # Create a new light type
 light_wide = bpy.data.lights.new(name="Backlight_Wide", type='SPOT')
 light_wide.energy = 10000.0

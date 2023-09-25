@@ -2,10 +2,14 @@ from pathlib import Path
 import subprocess
 import tempfile
 import os
+import logging
+from datetime import datetime
 
 
-RENDER_TEMPLATE_PATH = Path(__file__).parent / 'render_template.py'
+RENDER_SCRIPT_PATH = Path(__file__).parent / 'render_template.py'
 SCENARIO_DIR_PATH = Path().cwd() / 'scenarios'
+
+logger = logging.getLogger(__name__)
 
 
 def run_scenario(
@@ -15,40 +19,47 @@ def run_scenario(
     blender_path: str,
     scenario_path: str,
 ):
+    output_dir = Path(output_path) / scenario_path
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     # creating output paths
-    render_output_path = Path(output_path) / scenario_path / 'image'
-    log_output_path = Path(output_path) / scenario_path / 'render.log'
+    render_output_path = output_dir / 'image'
 
     # scenario_path = scenario['scenario_path']
     scenario_path = f"{SCENARIO_DIR_PATH / scenario_path}.py"
 
-    # creating a temporary blender script from a script template
-    print('\nCreating a temporary script...')
-    render_script = tempfile.NamedTemporaryFile(mode='w+', delete=False)
-    render_script.write(f'OUTPUT_PATH=r"{render_output_path}"\n')
-    render_script.write(f'X_RESOLUTION={x_resolution}\n')
-    render_script.write(f'Y_RESOLUTION={y_resolution}\n')
-    with open(RENDER_TEMPLATE_PATH, mode='r') as f:
-        render_script.writelines(f)
-    render_script.close()
+    # setting environment variables that render_script will use
+    os.environ['X_RESOLUTION'] = x_resolution
+    os.environ['Y_RESOLUTION'] = y_resolution
+    os.environ['OUTPUT_PATH'] = str(render_output_path)
 
-    # calling blender in a subprocess
+    # calling Blender in a subprocess
     print('Calling Blender...')
     completed_process = subprocess.run(
-        [blender_path, "-b", "-P", scenario_path, "-P", render_script.name],
+        [
+            blender_path,
+            "-b",
+            "-noaudio",
+            "-E", "CYCLES",
+            "-t", "0",
+            "--python-exit-code", "1",
+            "-P", scenario_path,
+            "-P", RENDER_SCRIPT_PATH,
+        ],
         text=True,
-        stderr=subprocess.STDOUT,
-        stdout=subprocess.PIPE,
+        capture_output=True,
     )
 
     # writing render log
     print('Writing render log...')
-    with open(log_output_path, mode='w+') as logfile:
-        logfile.writelines(completed_process.stdout)
-
-    # deleteing the temporary file
-    print('Removing temporary files...')
-    os.remove(render_script.name)
+    save_render_log(output_dir, completed_process.stdout, 'render.log')
+    save_render_log(output_dir, completed_process.stderr, 'render_err.log')
 
     return completed_process
+
+
+def save_render_log(output_path, log, filename):
+    if log != '':
+        log_output_path = Path(output_path) / filename
+        with open(log_output_path, mode='w+') as logfile:
+            logfile.writelines(log)

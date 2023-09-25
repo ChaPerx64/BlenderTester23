@@ -54,4 +54,5 @@ def test_shapecreation(request, testwrapper):
         input_args['blender_path'],
         testwrapper,
     )
-    assert completed_process.returncode == 0
+    assert completed_process.returncode == 0, "Blender run failed"
+    assert completed_process.stderr is not None, completed_process.stderr
