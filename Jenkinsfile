@@ -4,6 +4,10 @@ pipeline {
             label 'jenkins-blender-tester'
         }
     }
+    parameters {
+        string(name: "x_resolution", trim: true, description: "the width of the rendered image")
+        string(name: "y_resolution", trim: true, description: "the height of the rendered image")
+    }
     stages {
         stage('Image resolution input') {
             steps {
