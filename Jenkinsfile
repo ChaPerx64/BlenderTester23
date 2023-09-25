@@ -34,8 +34,10 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: '/results/*',
-            rm -r '/results/*'
+            steps {
+                archiveArtifacts artifacts: '/results/*',
+                rm -r '/results/*'
+            }
         }
     }
 }
