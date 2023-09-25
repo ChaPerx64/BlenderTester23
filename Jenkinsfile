@@ -31,11 +31,11 @@ pipeline {
                 '''
             }
         }
-        post {
-            always {
-                archiveArtifacts artifacts: '/results/*',
-                rm -r '/results/*'
-            }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: '/results/*',
+            rm -r '/results/*'
         }
     }
 }
