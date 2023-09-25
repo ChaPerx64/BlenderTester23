@@ -31,12 +31,10 @@ pipeline {
                 '''
             }
         }
-        stage('Deliver') {
-            steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+        post {
+            always {
+                archiveArtifacts artifacts: '/results/*',
+                rm -r '/results/*'
             }
         }
     }
