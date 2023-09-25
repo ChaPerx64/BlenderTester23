@@ -43,7 +43,7 @@ def runtests(
     # searching for the dir test scenarios
     scenarios = find_scenarios(Path().cwd() / 'scenarios')
 
-    # Runninf scenarios
+    # Running scenarios
     for n, scenario in enumerate(scenarios, 1):
         print(
             f"\nRunning scenario {n}/{len(scenarios)}: {scenario['scenario_name']}...")

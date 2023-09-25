@@ -5,6 +5,7 @@ import os
 
 
 RENDER_TEMPLATE_PATH = Path(__file__).parent / 'render_template.py'
+SCENARIO_DIR_PATH = Path().cwd() / 'scenarios'
 
 
 def run_scenario(
@@ -12,16 +13,18 @@ def run_scenario(
     y_resolution: str,
     output_path: str,
     blender_path: str,
-    scenario: dict,
+    scenario_path: str,
 ):
-    scenario_path = scenario['scenario_path']
 
     # creating output paths
-    render_output_path = Path(output_path) / 'image'
-    log_output_path = Path(output_path) / 'render.log'
+    render_output_path = Path(output_path) / scenario_path / 'image'
+    log_output_path = Path(output_path) / scenario_path / 'render.log'
+
+    # scenario_path = scenario['scenario_path']
+    scenario_path = f"{SCENARIO_DIR_PATH / scenario_path}.py"
 
     # creating a temporary blender script from a script template
-    print('Creating a temporary script...')
+    print('\nCreating a temporary script...')
     render_script = tempfile.NamedTemporaryFile(mode='w+', delete=False)
     render_script.write(f'OUTPUT_PATH=r"{render_output_path}"\n')
     render_script.write(f'X_RESOLUTION={x_resolution}\n')
@@ -47,3 +50,5 @@ def run_scenario(
     # deleteing the temporary file
     print('Removing temporary files...')
     os.remove(render_script.name)
+
+    return completed_process

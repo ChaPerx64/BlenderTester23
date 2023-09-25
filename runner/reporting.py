@@ -19,5 +19,6 @@ def save_report_json(
         'test_duration': f"{test_duration.total_seconds()} seconds",
         'system_info': sysinfo,
     })
+    Path(output_path).mkdir(parents=True, exist_ok=True)
     with open(Path(output_path) / 'report.json', mode='w+') as f:
         json.dump(out_dict, f, indent=2)
