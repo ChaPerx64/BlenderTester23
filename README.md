@@ -22,7 +22,7 @@ Prerequisites: Have Blender of version 3.3 or newer installed
 1. Create local environment and install dependencies from `requirements.txt`
 1. Put your scenarios in subdirectories of `scenarios` and name the main module `scenario.py`. Subdirectories' names will be used as scenario names and used in the output and logs.
     - Note: scenarios should only describe a scene (geometry, materials, environment, lighting etc.) and not contain render commands or settings like `bpy.ops.render.render()`. Any render setting might get overwritten.
-1. Run the `pytest` command as described above
+1. Run the `pytest` command as [described above](#how-to-run-it)
 1. Now check your `output_path`
 
 ## How does it work?
