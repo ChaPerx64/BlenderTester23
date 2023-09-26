@@ -7,12 +7,27 @@ logger = logging.getLogger(__name__)
 
 
 def save_report_json(
-    output_path: str,
-    test_name: str,
-    time_start: datetime,
-    time_end: datetime,
-    sysinfo: dict,
-):
+        output_path: str,
+        test_name: str,
+        time_start: datetime,
+        time_end: datetime,
+        sysinfo: dict,):
+    """
+    Save test report information in JSON format to a specified output directory.
+
+    Args:
+        output_path (str): The directory where the JSON report file will be saved.
+        test_name (str): The name of the test scenario.
+        time_start (datetime): The start time of the test.
+        time_end (datetime): The end time of the test.
+        sysinfo (dict): System information to be included in the report.
+
+    Note:
+        This function creates a JSON report file containing information about the test,
+        including its name, start time, end time, duration, and system information.
+        The report file is saved in the specified 'output_path' directory.
+
+    """
     logger.info('Saving test report into JSON-file')
     logger.debug(f"Saving path: {Path(output_path) / 'report.json'}")
     test_duration = time_end - time_start
