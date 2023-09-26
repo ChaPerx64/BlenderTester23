@@ -45,3 +45,11 @@ Basic scructure is this:
         - Blender subprocess return code is 0
         - Blender subprocess STDOUT is not empty
         - Blender subprocess STDOUT contains `Saved: ` string, indicating that the rendered image was, most likely, saved
+
+## Jenkins pipeline
+
+This project is supplied with `Jenkinsfile`, which contains pipeline description in Groovy language.
+
+As long as your agent runs in an environment with blender installed and able to execute Blender renders headlessly, It should work.
+
+For the purposes of testing this pipeline I created [JenkinsBlenderTester](https://github.com/ChaPerx64/JenkinsBlenderTester).
