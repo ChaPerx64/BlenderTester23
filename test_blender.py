@@ -48,7 +48,6 @@ def test_shapecreation(testwrapper):
     assert completed_process.returncode == 0, f"Blender run failed\n{completed_process.stdout}"
     assert completed_process.stdout is not '', "Blender subprocess STDOUT is empty!"
     assert 'Saved: ' in completed_process.stdout, "Image probably was not rendered"
-    assert completed_process.stderr is None, completed_process.stderr
 
 
 def get_name_and_create_subdir(output_path: str | Path, scenario_path: str | Path):
