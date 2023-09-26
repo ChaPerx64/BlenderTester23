@@ -9,12 +9,14 @@ It is a tester app that can automatically test scripts put into `scenarios` subd
 
 To launch it, run the following:
 ```
-pytest --x_resolution [value] --y_resolution [value] --blender_path [value] --output_path [value] 
+pytest --x_resolution <x_resolution> --y_resolution <y_resolution> --blender_path <blender_path> --output_path <output_path> 
 ```
 where:
 * `x_resolution`, `y_resolution` -- resolution of images rendered, in px, int
 * `blender_path` -- path to blender executable (3.X series versions)
 * `output_path` -- path to a directory, where you want to see the output
+
+Note: these options have no default values so **it is necessary** to provide them
 
 ## How to install and use it
 Prerequisites: Have Blender of version 3.3 or newer installed
